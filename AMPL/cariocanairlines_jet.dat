@@ -1,0 +1,47 @@
+# File .dat
+
+# Definisco gli insiemi presenti
+
+set I:= alpha, beta, gamma; # tipi di aereo
+set J:=	e, p, b; # classi | e=economy, p=premium, b=business
+set M:= d, g;    # mesi per i quali voglio stabilire il guadagno, dicembre e gennaio
+
+# Parametri
+
+# capienza dell'aereo
+param capacity := 
+alpha  50
+beta   45
+gamma  40;
+
+# carburante
+param gasoline :=
+e 0.75
+p 0.70
+b 0.65;
+
+# personale di bordo/terra
+param hostess :=
+e 0.08
+p 0.1
+b 0.15;
+
+# cibo
+param food :=
+e 0
+p 0.05
+b 0.10;
+
+# tasse aeroportuali
+param tax := 40;
+
+# iva - scorporo dell'IVA
+param iva :=
+e 290 # 1450-(100*1450)/125
+p 400 # 1600-(100*2000)/125
+b 620; # 3100-(100*3100)/125;
+
+param Ma:= 35;
+param Mb:= 20; # 25 caso di capacita' piena
+
+param C:= 256; 
