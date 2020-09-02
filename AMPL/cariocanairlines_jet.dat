@@ -1,4 +1,7 @@
-# File .dat
+# ------------------------------
+# Progetto di Ricerca Operativa
+# di Greta Cavedon
+# ------------------------------
 
 # Definisco gli insiemi presenti
 
@@ -7,6 +10,12 @@ set J:=	e, p, b; # classi | e=economy, p=premium, b=business
 set M:= d, g;    # mesi per i quali voglio stabilire il guadagno, dicembre e gennaio
 
 # Parametri
+
+param price :=
+e 1450
+p 2000
+b 3100
+;
 
 # capienza dell'aereo
 param capacity := 

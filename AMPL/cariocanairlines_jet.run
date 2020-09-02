@@ -42,8 +42,7 @@ printf "Guadagno di Dicembre: %.2f euro\n", 1450* sum{i in I}(x[i,'e', 'd']) + 2
 - 1600*(gasoline['p']+hostess['p']+food['p'])* sum{i in I}(x[i,'p','d'])
 - 2480*(gasoline['b']+hostess['b']+food['b'])* sum{i in I}(x[i,'b', 'd']) - iva['e']* sum{i in I}(x[i,'e', 'd']) 
 - iva['p']* sum{i in I}(x[i,'p', 'd']) - iva['b']* sum{i in I}(x[i,'b','d']) - tax* sum{i in I, j in J}(x[i,j,'d'])
-+ 0.1*z*sum{i in I, j in J, m in M}(x[i,j, 'd']) - 1160*0.05*k['alpha']*x['alpha','b','d']
-- 1600*0.05*k['beta']*x['beta','b','d']-2480*0.05*k['gamma']*x['gamma','b','d']; 
++ 0.1*z*sum{i in I, j in J, m in M}(x[i,j, 'd']) - 2480*0.05*sum{i in I}k[i]*x[i,'b','d']; 
 
 print "----------------";
 print "    Gennaio";
@@ -77,7 +76,7 @@ printf "Guadagno di Gennaio: %.2f euro\n", 1450* sum{i in I}(x[i,'e', 'g']) + 20
 
 printf "-----------------------------------------------------\n";
 
-printf "Sconto del 10%: %s \n",
+printf "Sconto di 143euro: %s \n",
 		if z==1 then "Attivato" else "No"; 
 printf "Tempo di esecuzione: %.3f s\n", _total_solve_time;		
 				

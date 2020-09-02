@@ -11,6 +11,12 @@ set M:= d, g;    # mesi per i quali voglio stabilire il guadagno, dicembre e gen
 
 # Parametri
 
+param price :=
+e 1450
+p 2000
+b 3100
+;
+
 # capienza dell'aereo
 param capacity := 
 alpha  250
