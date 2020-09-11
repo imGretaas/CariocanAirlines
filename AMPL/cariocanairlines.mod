@@ -20,11 +20,22 @@ var v2 binary;   # attivazione di un solo sconto
 
 param price{J};	   # costo biglietto per classe
 param capacity{I} integer; # capacita' di ciascun aereo
+param riempimento{I} integer; # capacita' minima di riempimento di ciascun aereo
 param gasoline{J}; # carburante per ciascuna classe
 param hostess{J};  # costo personale di bordo/terra
 param food{J};	   # costo cibo
-param tax integer; # tasse aeroportuali 
 param iva{J};      # iva per biglietto venduto 
+param occ_premium{J,I}; # occupazione posti in premium rispetto i posti business
+param min_premium{I}; # occupazione minima posti in premium 
+
+# Costanti del modello
+
+param tax integer;  # tasse aeroportuali 
+param business_gen; # posti in business a gennaio
+param business_dic; # sconto posti in business a dicembre
+param min_business; # posti minimi in business
+param sconto_bus;   # sconto business
+
 param Ma integer;  # soglia della classe economy per l'aereo alpha     
 param Mb integer;  # soglia della classe economy per l'aereo beta
 param C integer;   # soglia per sconto IVA
@@ -34,7 +45,7 @@ param C integer;   # soglia per sconto IVA
 maximize obj: sum{i in I, j in J, m in M}price[j]*(x[i, j, m]) 
 - sum{i in I, j in J, m in M}(price[j]-iva[j])*(gasoline[j]+hostess[j]+food[j])*(x[i,j,m]) 
 - sum{i in I, j in J, m in M}iva[j]*(x[i,j,m]) - tax* sum{i in I, j in J, m in M}(x[i,j,m])
-+ 143*z - 2480*0.05*sum{i in I}k[i];
++ 143*z - sconto_bus*sum{i in I}k[i];
 
 # Vincoli
 
@@ -48,7 +59,7 @@ s.t. sconto_dieci: sum{i in I, j in J, m in M}x[i, j, m]>=C*z;
 
 # Quantita' minima di riempimento
 
-s.t. min_alpha {i in I, m in M}: sum{j in J} x[i, j, m]>=0.8*capacity[i];
+s.t. min_alpha {i in I, m in M}: sum{j in J} x[i, j, m]>=riempimento[i];
 
 # Posti in Economy
 
@@ -58,9 +69,9 @@ s.t. economy {i in I,m in M}: x[i, 'e', m]>= x[i,'p', m]+x[i,'b', m];
 
 # Posti in Premium
 
-s.t. min_pre {m in M}: sum{i in I} x[i,'p',m]>= 0.15* sum{i in I}(capacity[i]);
+s.t. min_pre {m in M}: sum{i in I} x[i,'p',m]>= sum{i in I}(min_premium[i]*capacity[i]);
 
-s.t. min_pre_a {i in I, m in M}: x[i, 'p',m]>= 0.1*x[i, 'b',m];
+s.t. min_pre_a {i in I, j in J, m in M}: x[i, 'p',m]>=occ_premium[j,i]*x[i, 'b',m];
 
 # Economy in Alpha e Beta - attivazione booleana
 
@@ -68,17 +79,17 @@ s.t. eco_alpha: x['alpha','e', 'g']-Ma*v>=0;
 s.t. eco_beta: x['beta', 'e', 'g']-Mb*v<=0;
 
 # Biglietti in Business minimi
-s.t. business_class {i in I}: x[i,'b','d']>=0.25*x[i,'e','d'];
+s.t. business_class {i in I}: x[i,'b','d']>= min_business * x[i,'e','d'];
 
 # Sconto sui biglietti in Business per Dicembre
 
-s.t. bool_k {i in I}: x[i,'b','d']<=0.30*capacity[i]*k[i]; 
+s.t. bool_k {i in I}: x[i,'b','d']<= business_dic*capacity[i]*k[i]; 
  
 # Posti in business a gennaio
 
-s.t. bus_alpha {i in I}: x[i,'b','g']>=0.7*(x[i,'b','d']+x[i,'p','d']);
+s.t. bus_alpha {i in I}: x[i,'b','g']>= business_gen *(x[i,'b','d']+x[i,'p','d']);
 
-# Alternativa = applico uno sconto solo
+# Alternativa = applico uno sconto solo // Scenario indicato alla sezione 4.3
 
 # Se c'e' lo sconto sulla classe Business per Dicembre, non applico lo sconto del 10% sui biglietti totali
 

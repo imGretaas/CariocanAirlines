@@ -41,25 +41,25 @@ printf "Ricavo di Alpha: %.2f euro\n",
 sum{j in J}price[j]*(x['alpha', j, 'd']) 
 - sum{j in J}(price[j]-iva[j])*(gasoline[j]+hostess[j]+food[j])*(x['alpha',j,'d']) 
 - sum{j in J}iva[j]*(x['alpha',j,'d']) - tax*sum{j in J}(x['alpha',j,'d'])
-+ 143*z - 2480*0.05*k['alpha'];
++ 143*z - sconto_bus*k['alpha'];
 
 printf "Ricavo di Beta: %.2f euro\n",
 sum{j in J}price[j]*(x['beta', j, 'd']) 
 - sum{j in J}(price[j]-iva[j])*(gasoline[j]+hostess[j]+food[j])*(x['beta',j,'d']) 
 - sum{j in J}iva[j]*(x['beta',j,'d']) - tax*sum{j in J}(x['beta',j,'d'])
-+ 143*z - 2480*0.05*k['beta'];
++ 143*z - sconto_bus*k['beta'];
 
 printf "Ricavo di Gamma: %.2f euro\n",
 sum{j in J}price[j]*(x['gamma', j, 'd']) 
 - sum{j in J}(price[j]-iva[j])*(gasoline[j]+hostess[j]+food[j])*(x['gamma',j,'d']) 
 - sum{j in J}iva[j]*(x['gamma',j,'d']) - tax*sum{j in J}(x['gamma',j,'d'])
-+ 143*z - 2480*0.05*k['gamma'];
++ 143*z - sconto_bus*k['gamma'];
 
 printf "Ricavo di Dicembre: %.2f euro\n",
 sum{i in I, j in J}price[j]*(x[i, j, 'd']) 
 - sum{i in I, j in J}(price[j]-iva[j])*(gasoline[j]+hostess[j]+food[j])*(x[i,j,'d']) 
 - sum{i in I, j in J}iva[j]*(x[i,j,'d']) - tax* sum{i in I, j in J}(x[i,j,'d'])
-+ 143*z - 2480*0.05*sum{i in I}k[i];
++ 143*z - sconto_bus*sum{i in I}k[i];
 
 print "----------------";
 print "    Gennaio";

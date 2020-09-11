@@ -23,6 +23,12 @@ alpha  50
 beta   45
 gamma  40;
 
+param riempimento :=
+alpha 40
+beta 36
+gamma 32
+;
+
 # carburante
 param gasoline :=
 e 0.75
@@ -43,6 +49,35 @@ b 0.10;
 
 # tasse aeroportuali
 param tax := 40;
+
+# occupazione posti in premium
+param occ_premium : 
+	alpha beta gamma :=
+e   0	  0    0
+p   0     0    0
+b   0.1   0.1  0.1
+; 
+
+# occupazione minima posti in premium
+param min_premium := 
+alpha 0.15
+beta  0.15
+gamma 0.15
+;
+
+# fine occupazione posti in premium 
+
+# posti business a gennaio
+param business_gen := 0.7;
+
+# sconto posti business a dicembre
+param business_dic := 0.3;
+
+# posti minimi in business
+param min_business := 0.25;
+
+# sconto business
+param sconto_bus := 124;
 
 # iva - scorporo dell'IVA
 param iva :=
